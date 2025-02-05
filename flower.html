@@ -9,21 +9,43 @@
   <link rel="stylesheet" href="css/style.css">
   <title>FLOWERS FOR YOU</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #000;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+     body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: shoot 3s linear infinite;
+        }
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-500px, 500px);
+                opacity: 0;
+            }
+          }
 
     /* Full-screen flowers and grass background */
     .flowers {
@@ -398,6 +420,45 @@
   </div>
 
   <script>
+    function createStars(count) {
+            for (let i = 0; i < count; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+                document.body.appendChild(star);
+                
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                let delay = Math.random() * 2;
+                let size = Math.random() * 3 + 1;
+                
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+            }
+        }
+        
+        function createShootingStar() {
+            let shootingStar = document.createElement("div");
+            shootingStar.className = "shooting-star";
+            document.body.appendChild(shootingStar);
+            
+            let startX = Math.random() * window.innerWidth;
+            let startY = Math.random() * window.innerHeight * 0.5;
+            
+            shootingStar.style.left = `${startX}px`;
+            shootingStar.style.top = `${startY}px`;
+            shootingStar.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            
+            setTimeout(() => {
+                shootingStar.remove();
+                createShootingStar();
+            }, 3000);
+        }
+        
+        createStars(200);
+        setInterval(createShootingStar, 2000);
     document.addEventListener("DOMContentLoaded", function () {
       const music = document.getElementById("bg-music");
       const vinyl = document.getElementById("vinyl");
