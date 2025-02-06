@@ -26,7 +26,17 @@
         @keyframes twinkle {
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
-        } 
+        }
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-500px, 500px);
+                opacity: 0;
+            }
+          }
 
     /* Full-screen flowers and grass background */
     .flowers {
@@ -68,7 +78,7 @@
             background: url('vinyl.png') no-repeat center;
             background-size: cover;
             border-radius: 50%;
-            margin-top: -150px;
+            margin-top: -158px;
             transition: transform 0.5s linear;
         }
         .rotate {
@@ -429,6 +439,25 @@
                 star.style.animationDelay = `${delay}s`;
             }
         }
+        
+        function createShootingStar() {
+            let shootingStar = document.createElement("div");
+            shootingStar.className = "shooting-star";
+            document.body.appendChild(shootingStar);
+            
+            let startX = Math.random() * window.innerWidth;
+            let startY = Math.random() * window.innerHeight * 0.5;
+            
+            shootingStar.style.left = `${startX}px`;
+            shootingStar.style.top = `${startY}px`;
+            shootingStar.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            
+            setTimeout(() => {
+                shootingStar.remove();
+                createShootingStar();
+            }, 3000);
+        }
+        
         createStars(200);
         setInterval(createShootingStar, 2000);
     document.addEventListener("DOMContentLoaded", function () {
