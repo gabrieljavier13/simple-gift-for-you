@@ -429,25 +429,6 @@
                 star.style.animationDelay = `${delay}s`;
             }
         }
-        
-        function createShootingStar() {
-            let shootingStar = document.createElement("div");
-            shootingStar.className = "shooting-star";
-            document.body.appendChild(shootingStar);
-            
-            let startX = Math.random() * window.innerWidth;
-            let startY = Math.random() * window.innerHeight * 0.5;
-            
-            shootingStar.style.left = `${startX}px`;
-            shootingStar.style.top = `${startY}px`;
-            shootingStar.style.animationDuration = `${Math.random() * 2 + 1}s`;
-            
-            setTimeout(() => {
-                shootingStar.remove();
-                createShootingStar();
-            }, 3000);
-        }
-        
         createStars(200);
         setInterval(createShootingStar, 2000);
     document.addEventListener("DOMContentLoaded", function () {
